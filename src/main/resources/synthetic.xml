@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!--
+
+    THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EITHER EXPRESSED OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS
+    FOR A PARTICULAR PURPOSE. THIS CODE AND INFORMATION ARE NOT SUPPORTED BY XEBIALABS.
+
+-->
+<synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!-- auto plugin updater -->
+        <type type="xlr.AutoUpdate" extends="xlrelease.PythonScript">
+        <property name="xlhome" label="XL Home" category="input" kind="string" description="New Plugin Location" />
+        <property name="xlrepository" label="XL Repo" category="input" kind="string" description="XL Centralized Plugin Location" />
+            <property name="scriptLocation" default="updater/plugins.py" hidden="true" />
+    </type>
+</synthetic>
