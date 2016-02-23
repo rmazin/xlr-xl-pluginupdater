@@ -1,4 +1,4 @@
-#XL Release XL managemnet plugin
+#XL Release XL management plugin
 
 ## Preface
 This document describes the functionality provide by the 'xlr-xl-pluginupdater' plugin, as well as potential future functionality.
