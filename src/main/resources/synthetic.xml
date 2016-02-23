@@ -7,10 +7,60 @@
 
 -->
 <synthetic xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd" xmlns="http://www.xebialabs.com/deployit/synthetic" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
 <!-- auto plugin updater -->
-        <type type="xlr.AutoUpdate" extends="xlrelease.PythonScript">
-        <property name="xlhome" label="XL Home" category="input" kind="string" description="New Plugin Location" />
-        <property name="xlrepository" label="XL Repo" category="input" kind="string" description="XL Centralized Plugin Location" />
+        <type type="mgmt.AutoUpdate" extends="xlrelease.PythonScript">
+        <property name="xlHome" label="XL Home" category="input" kind="string" default="${xlHome}" description="New Plugin Location (local)" />
+        <property name="xlRepository" label="XL Repo" category="input" kind="string" default="${xlRepo}" description="XL Centralized Plugin Location" />
             <property name="scriptLocation" default="updater/plugins.py" hidden="true" />
     </type>
+
+    <!-- auto plugin updater extending for git download -->
+        <type type="mgmt.GitUpdate" extends="xlrelease.PythonScript">
+        <property name="xlHome" label="XL Home" category="input" kind="string" default="${xlHome}" description="New Plugins Location (local)" />
+        <property name="xlRepository" label="XL Repo" category="input" kind="string" default="${xlRepo}" description="XL Centralized Plugin Location" />
+        <property name="scriptLocation" default="updater/gitplugins.py" hidden="true" />
+    </type>
+
+<!-- centralize repository plugin -->
+        <type type="mgmt.Centralize" extends="xlrelease.PythonScript">
+        <property name="xlHome" label="XL Home" category="input" kind="string" default="${xlHome}" description="Enter your server location." />
+        <property name="xlRepository" label="XL Repo" category="input" kind="string" default="${xlRepo}" description="Where do you want to store your centralized repository?" />
+        <property name="xlProduct" label="XL Product" category="input" kind="string" description="Which XL Product are you updating?" default="${xlProduct}" required="true" />
+        <property name="scriptLocation" default="updater/centralize.py" hidden="true" />
+    </type>
+<!-- create plugin Json -->
+        <type type="mgmt.PluginScan" extends="xlrelease.PythonScript">
+        <!-- <property name="xlHome" label="XL Home" category="input" kind="string" default="${xlHome}" description="Enter your server location." /> -->
+        <property name="xlPlugins" label="XL Plugins Directory" category="input" kind="string" default="${xlPlugins}" description="Where is your plugins directory?" />
+        <!-- <property name="xlProduct" label="XL Product" category="input" kind="string" description="Which XL Product are you updating?" default="${xlProduct}" required="true" /> -->
+        <property name="scriptLocation" default="updater/listplugins.py" hidden="true" />
+    </type>
+    <!-- update plugins from dynamic tasks -->
+    <type type="mgmt.UpdatePlugins" extends="xlrelease.PythonScript">
+        <property name="taskColor" hidden="true" default="#7A1F99" />
+        <property name="pluginFile" label="XL Plugin File Name" category="input" kind="string" default="${pluginFile}" description="The full filename of the plugin" hidden="false" />
+        <property name="xlPlugins" label="XL Plugins Directory" category="input" kind="string" default="${xlPlugins}" description="Where is your plugins directory?" />
+        <property name="pluginName" default="${pluginName}" category="input" label="Plugin" kind="string" required="true"/>
+        <property name="currentVersion" default="${currentVersion}" category="input" label="Current Version" kind="string" required="true"/>
+        <property name="newVersion" default="${newVersion}" category="input" label="New Version" kind="string" required="true" description="Version you want to update to. (ie. 1.4.1)"/>
+        <property name="updateType" default="${updateType}" category="input" label="Transfer Type" kind="string" required="true" description="How will the new plugin be transferred? (ie. git, scp, local)"/>
+        <property name="gitRepo" default="${gitRepo}" category="input" label="Git Repo" kind="string" required="false" description="Name of the Github repository where this plugin's releases are stored!"/>
+        <property name="pluginLocation" default="${pluginLoc}" category="input" label="New Version Location" kind="string" description="The URL or path where the new plugin version lives."/>
+        <property name="scriptLocation" default="updater/updateplugins.py" hidden="true" />
+    </type>
+    <!--cleanup the plugins.json log file -->
+    <type type="mgmt.JsonCleanup" extends="xlrelease.PythonScript">
+        <property name="taskColor" hidden="true" default="#46d707" />
+        <property name="xlPlugins" label="XL Plugins Directory" category="input" kind="string" default="${xlPlugins}" description="Where is your plugins directory?" />
+        <property name="scriptLocation" default="updater/jsoncleanup.py" hidden="true" />
+    </type>
+        <!-- symlink the plugins directory -->
+    <type type="mgmt.RelinkPlugins" extends="xlrelease.PythonScript">
+        <property name="taskColor" hidden="true" default="#46d707" />
+        <property name="newPlugins" label="New Plugins Directory" category="input" kind="string" default="${newPlugins}" description="Enter the location of the new plugins." />
+        <property name="xlPlugins" label="XL Plugins Directory" category="input" kind="string" default="${xlPlugins}" description="Where is your plugins directory?" />
+        <property name="scriptLocation" default="updater/relink.py" hidden="true" />
+    </type>
+
 </synthetic>

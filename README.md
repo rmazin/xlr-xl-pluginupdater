@@ -1,7 +1,7 @@
 #XL Release variable persistence off plugin
 
 ## Preface
-This document describes the functionality provide by the `xlr-xl-pluginupdater plugin`, as well as potential future functionality.
+This document describes the functionality provide by the 'xlr-xl-pluginupdater' plugin, as well as potential future functionality.
 
 ## Overview
 This module enables users of xl-release to update plugins for XLR and XLD and symlink the plugins directory from a centralized location.
